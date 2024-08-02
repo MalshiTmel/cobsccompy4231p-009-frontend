@@ -1,49 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './TrainTable.css';
 
-const TrainTable = () => {
-  const [trainData, setTrainData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch data from backend API here
-    // For now, we'll just simulate with a timeout
-    setTimeout(() => {
-      setTrainData([]); // Empty array as no data is available
-      setLoading(false);
-    }, 1000);
-  }, []);
-
+const TrainTable = ({ trains }) => {
   return (
-    <div className="table-container">
-      <h2>Train Schedule</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : trainData.length === 0 ? (
-        <p>No data available</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Train</th>
-              <th>Status</th>
-              <th>Departure</th>
-              <th>Arrival</th>
+    <table className="TrainTable">
+      <thead>
+        <tr>
+          <th>Train Name</th>
+          <th>Status</th>
+          <th>Start Time</th>
+          <th>Current Location</th>
+          <th>Next Stop</th>
+          <th>End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {trains.length > 0 ? (
+          trains.map((train, index) => (
+            <tr key={index}>
+              <td>{train.train_name || 'No name'}</td>
+              <td>{train.status || 'No status'}</td>
+              <td>{train.start_time ? new Date(train.start_time).toLocaleString() : 'No start time'}</td>
+              <td>{train.current_location || 'No current location'}</td>
+              <td>{train.next_stop || 'No next stop'}</td>
+              <td>{train.estimated_end_time ? new Date(train.estimated_end_time).toLocaleString() : 'No end time'}</td>
             </tr>
-          </thead>
-          <tbody>
-            {trainData.map((train) => (
-              <tr key={train.id}>
-                <td>{train.train}</td>
-                <td>{train.status}</td>
-                <td>{train.departure}</td>
-                <td>{train.arrival}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="6">No trains available</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   );
 };
 
