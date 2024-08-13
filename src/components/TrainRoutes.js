@@ -1,59 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import TrainTable from './TrainTable';
 import './TrainRoutes.css';
 
+const routes = [
+  { id: 'r01', name: 'Kandy Line' },
+  { id: 'r02', name: 'Main Line' },
+  { id: 'r03', name: 'Matara Line' },
+  { id: 'r04', name: 'Coastal Line' },
+  { id: 'r05', name: 'Galle Line' },
+  { id: 'r06', name: 'Batticaloa Line' },
+  { id: 'r07', name: 'Trincomalee Line' },
+  { id: 'r08', name: 'Northern Line' },
+  { id: 'r09', name: 'Vavuniya Line' },
+
+];
+
 const TrainRoutes = () => {
-  const [trainData, setTrainData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [trainData, setTrainData] = useState({});
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/trains')
-      .then(response => {
-        console.log("Fetched train data:", response.data);
-        setTrainData(removeDuplicates(response.data));
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Error fetching train data:", error);
-        setLoading(false);
-      });
+    const fetchTrainData = async () => {
+      const data = {};
+      for (const route of routes) {
+        try {
+          const response = await fetch(`http://localhost:5001/api/trains-without-engines/route/${route.id}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data for route ${route.id}`);
+          }
+          const result = await response.json();
+
+          // Ensure result is an array
+          data[route.id] = Array.isArray(result) ? result : [];
+        } catch (error) {
+          console.error(`Error fetching data for route ${route.id}:`, error);
+          data[route.id] = []; // Fallback to empty array on error
+        }
+      }
+      setTrainData(data);
+    };
+
+    fetchTrainData();
   }, []);
 
-  const removeDuplicates = (arr) => {
-    const seen = new Set();
-    return arr.filter(item => {
-      const key = `${item.train_name}-${item.route_name}`;
-      if (seen.has(key)) {
-        return false;
-      }
-      seen.add(key);
-      return true;
-    });
-  };
-
-  const filterTrainsByRoute = (route) => {
-    return trainData.filter(train => train.route_name === route);
-  };
-
-  if (loading) return <div className="loading">Loading data...</div>;
-
   return (
-    <div className="TrainRoutes">
-      <h2>Main Line</h2>
-      <TrainTable trains={filterTrainsByRoute('Main Line')} />
-      
-      <h2>Coastal Line</h2>
-      <TrainTable trains={filterTrainsByRoute('Coastal Line')} />
-      
-      <h2>Northern Line</h2>
-      <TrainTable trains={filterTrainsByRoute('Northern Line')} />
-      
-      <h2>Upcountry Line</h2>
-      <TrainTable trains={filterTrainsByRoute('Upcountry Line')} />
-      
-      <h2>Batticaloa Line</h2>
-      <TrainTable trains={filterTrainsByRoute('Batticaloa Line')} />
+    <div className="train-routes">
+      {routes.map(route => (
+        <TrainTable
+          key={route.id}
+          routeName={route.name}
+          trains={trainData[route.id] || []} // Ensure trains is an array
+        />
+      ))}
     </div>
   );
 };

@@ -1,39 +1,19 @@
-.TrainTable {
-  width: 90%; /* Adjust the width as needed */
-  max-width: 1200px; /* Optional: Set a maximum width */
-  margin: 40px auto; /* Centers the table and adds margin between tables */
+/* /Users/malshitmel/Desktop/cobsccompy4231p-009-frontend/src/components/TrainTable.css */
+.train-table {
+  margin-bottom: 20px;
+}
+
+.train-table table {
+  width: 100%;
   border-collapse: collapse;
 }
 
-.TrainTable th,
-.TrainTable td {
-  border: 1px solid #d6bfa7; /* Light brown border color */
-  padding: 14px; /* Increased padding for more line spacing */
-}
-
-.TrainTable th {
-  background-color: #8c6b5d; /* Medium brown background color for the header */
-  color: #fff; /* White text color for the header */
+.train-table th, .train-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
   text-align: left;
 }
 
-.TrainTable tbody tr:nth-child(even) {
-  background-color: #f5e8e0; /* Very light beige background color for even rows */
-}
-
-.TrainTable tbody tr:hover {
-  background-color: #e0c9b5; /* Slightly darker beige background color on hover */
-}
-
-.TrainRoutes {
-  margin: 20px;
-}
-
-.TrainRoutes h1 {
-  margin-top: 20px;
-  color: #5a3e2e; /* Darker brown text color */
-  background-color: #f5e8e0; /* Very light beige background color */
-  padding: 15px; /* Increased padding for more height */
-  border-radius: 5px; /* Optional: rounded corners */
-  font-size: 1.5rem; /* Optional: adjust font size as needed */
+.train-table th {
+  background-color: #f4f4f4;
 }

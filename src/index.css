@@ -1,24 +1,6 @@
+/* /Users/malshitmel/Desktop/cobsccompy4231p-009-frontend/src/index.css */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font family */
   margin: 0;
   padding: 0;
-  background-color: #f8f4f1; /* Very light beige background color */
-}
-
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #6f4e28; /* Dark brown background color */
-  padding: 40px;
-  color: #fff; /* White text color */
-}
-
-main {
-  padding: 20px;
-}
-
-h2 {
-  color: #5a3e2e; /* Darker brown text color for headings */
+  font-family: Arial, sans-serif;
 }

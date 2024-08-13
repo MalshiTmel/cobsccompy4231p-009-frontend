@@ -1,0 +1,35 @@
+.engine-assignment {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .engine-assignment table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .engine-assignment th, .engine-assignment td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .engine-assignment th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .engine-assign-section {
+    margin-top: 20px;
+  }
+  
+  .engine-assign-section input {
+    margin-right: 10px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  
