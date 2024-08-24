@@ -4,46 +4,53 @@ import './TrainTable.css';
 const TrainTable = ({ routeName, trains }) => {
   const [trainDetails, setTrainDetails] = useState([]);
 
+  const fetchTrainDetails = async () => {
+    const details = await Promise.all(trains.map(async (train) => {
+      try {
+        const { TID } = train;
+        const response = await fetch(`http://localhost:5001/api/train-with-engines/tid/${TID}`);
+        if (!response.ok) throw new Error(`Failed to fetch train with engine data for TID ${TID}`);
+        const result = await response.json();
+        
+        const engineResponse = await fetch(`http://localhost:5001/api/train-engines/${result.EID}/realtime`);
+        if (!engineResponse.ok) throw new Error(`Failed to fetch real-time data for engine ID ${result.EID}`);
+        const engineData = await engineResponse.json();
+
+        return {
+          ...train,
+          ...engineData,
+          startStation: engineData.startStation || 'N/A',
+          startTime: engineData.startTime || 'N/A',
+          endStation: engineData.endStation || 'N/A',
+          estimatedEndTime: engineData.estimatedEndTime || 'N/A',
+          currentStation: engineData.currentStation || 'N/A',
+          nextStation: engineData.nextStation || 'N/A'
+        };
+      } catch (error) {
+        console.error(`Error fetching details for train ${train.TID}:`, error);
+        return {
+          ...train,
+          startStation: 'Error',
+          startTime: 'Invalid Time',
+          endStation: 'Error',
+          estimatedEndTime: 'Invalid Time',
+          currentStation: 'Error',
+          nextStation: 'Error'
+        };
+      }
+    }));
+    setTrainDetails(details);
+  };
+
   useEffect(() => {
-    const fetchTrainDetails = async () => {
-      const details = await Promise.all(trains.map(async (train) => {
-        try {
-          const { TID } = train;
-          const response = await fetch(`http://localhost:5001/api/train-with-engines/tid/${TID}`);
-          if (!response.ok) throw new Error(`Failed to fetch train with engine data for TID ${TID}`);
-          const result = await response.json();
-          
-          const engineResponse = await fetch(`http://localhost:5001/api/train-engines/${result.EID}/realtime`);
-          if (!engineResponse.ok) throw new Error(`Failed to fetch real-time data for engine ID ${result.EID}`);
-          const engineData = await engineResponse.json();
-
-          return {
-            ...train,
-            ...engineData,
-            startStation: engineData.startStation || 'N/A',
-            startTime: engineData.startTime || 'N/A',
-            endStation: engineData.endStation || 'N/A',
-            estimatedEndTime: engineData.estimatedEndTime || 'N/A',
-            currentStation: engineData.currentStation || 'N/A',
-            nextStation: engineData.nextStation || 'N/A'
-          };
-        } catch (error) {
-          console.error(`Error fetching details for train ${train.TID}:`, error);
-          return {
-            ...train,
-            startStation: 'Error',
-            startTime: 'Invalid Time',
-            endStation: 'Error',
-            estimatedEndTime: 'Invalid Time',
-            currentStation: 'Error',
-            nextStation: 'Error'
-          };
-        }
-      }));
-      setTrainDetails(details);
-    };
-
+    // Fetch train details initially
     fetchTrainDetails();
+
+    // Set up an interval to fetch the details every 5 seconds
+    const intervalId = setInterval(fetchTrainDetails, 60000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
   }, [trains]);
 
   return (
