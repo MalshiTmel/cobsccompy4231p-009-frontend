@@ -1,4 +1,5 @@
 /* /Users/asharatmel/Desktop/cobsccompy4231p-010-client/src/components/Admin/AdminDashboard.css */
+
 .admin-dashboard {
     padding: 2rem;
     background: #f4f4f4;
@@ -43,5 +44,24 @@
   
   .running-trains-table th {
     background-color: #f4f4f4;
+  }
+  
+  /* Style for the Old Records button */
+  .old-records-button {
+    display: block;
+    margin: 2rem auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .old-records-button:hover {
+    background-color: #0056b3;
   }
   

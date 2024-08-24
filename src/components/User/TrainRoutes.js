@@ -12,7 +12,6 @@ const routes = [
   { id: 'r07', name: 'Trincomalee Line' },
   { id: 'r08', name: 'Northern Line' },
   { id: 'r09', name: 'Vavuniya Line' },
-
 ];
 
 const TrainRoutes = () => {
@@ -44,6 +43,7 @@ const TrainRoutes = () => {
 
   return (
     <div className="train-routes">
+      <h1>Today's train schedule</h1>
       {routes.map(route => (
         <TrainTable
           key={route.id}

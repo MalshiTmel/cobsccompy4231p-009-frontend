@@ -1,5 +1,8 @@
+// /Users/malshitmel/Desktop/cobsccompy4231p-009-frontend/src/components/Admin/AdminDashboard.js
+
 import React, { useState, useEffect } from 'react';
-import TrainRoutes from '../TrainRoutes';
+import TrainRoutes from '../User/TrainRoutes';
+import OldRecords from './OldRecords'; // Import OldRecords component
 import './AdminDashboard.css';
 import './EngineAssignment.css';
 
@@ -9,6 +12,7 @@ const AdminDashboard = () => {
   const [newTrainID, setNewTrainID] = useState('');
   const [newEngineID, setNewEngineID] = useState('');
   const [error, setError] = useState('');
+  const [showOldRecords, setShowOldRecords] = useState(false);
 
   useEffect(() => {
     const fetchRunningTrains = async () => {
@@ -16,14 +20,22 @@ const AdminDashboard = () => {
         const response = await fetch('http://localhost:5001/api/train-with-engines');
         const data = await response.json();
 
+        // Fetch train names
         const trainDetails = await Promise.all(
           data.map(async (train) => {
-            const trainResponse = await fetch(`http://localhost:5001/api/trains-without-engines/${train.TID}`);
-            const trainData = await trainResponse.json();
-            return {
-              ...train,
-              trainName: trainData.train_name,
-            };
+            try {
+              const trainResponse = await fetch(`http://localhost:5001/api/trains-without-engines/${train.TID}`);
+              const trainData = await trainResponse.json();
+              return {
+                ...train,
+                trainName: trainData.TName || 'Unknown',
+              };
+            } catch (error) {
+              return {
+                ...train,
+                trainName: 'Error fetching name',
+              };
+            }
           })
         );
 
@@ -38,27 +50,24 @@ const AdminDashboard = () => {
 
   const handleUnassign = async (trainID) => {
     try {
-        await fetch(`http://localhost:5001/api/train-with-engines/unassign/${trainID}`, {
-            method: 'PATCH', // Use PATCH for partial updates
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ EID: 'unassigned' }), // Send only the fields that need updating
-        });
+      await fetch(`http://localhost:5001/api/train-with-engines/unassign/${trainID}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ EID: 'unassigned' }),
+      });
 
-        setRunningTrains((prevTrains) =>
-            prevTrains.map((train) =>
-                train.TID === trainID ? { ...train, EID: 'unassigned' } : train
-            )
-        );
+      setRunningTrains((prevTrains) =>
+        prevTrains.map((train) =>
+          train.TID === trainID ? { ...train, EID: 'unassigned' } : train
+        )
+      );
     } catch (error) {
-        console.error('Error unassigning engine:', error);
+      console.error('Error unassigning engine:', error);
     }
-};
+  };
 
-  
-
-const handleAssign = async () => {
+  const handleAssign = async () => {
     try {
-      // Check for engine assignment conflicts
       const response = await fetch('http://localhost:5001/api/train-with-engines');
       const data = await response.json();
       const engines = data.map((item) => item.EID);
@@ -66,20 +75,19 @@ const handleAssign = async () => {
         setError('Engine is already assigned to another train.');
         return;
       }
-  
-      // Update existing TrainWithEngine record
+
       await fetch(`http://localhost:5001/api/train-with-engines/${newTrainID}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ EID: newEngineID }),
       });
-  
+
       setRunningTrains((prevTrains) =>
         prevTrains.map((train) =>
           train.TID === newTrainID ? { ...train, EID: newEngineID } : train
         )
       );
-  
+
       setNewTrainID('');
       setNewEngineID('');
       setError('');
@@ -87,8 +95,6 @@ const handleAssign = async () => {
       console.error('Error assigning engine:', error);
     }
   };
-  
-  
 
   return (
     <div className="admin-dashboard">
@@ -143,6 +149,14 @@ const handleAssign = async () => {
             {error && <p className="error-message">{error}</p>}
           </div>
         </div>
+        {/* Button to toggle Old Records view */}
+        <button 
+          className="old-records-button" 
+          onClick={() => setShowOldRecords(!showOldRecords)}
+        >
+          {showOldRecords ? 'Hide Old Records' : 'Show Old Records'}
+        </button>
+        {showOldRecords && <OldRecords />} {/* Conditional rendering of OldRecords component */}
       </div>
     </div>
   );

@@ -1,35 +1,94 @@
+/* /Users/malshitmel/Desktop/cobsccompy4231p-009-frontend/src/components/Admin/EngineAssignment.css */
+
 .engine-assignment {
+    padding: 20px;
+    background-color: #f0f4ff; /* Light blue background */
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .engine-assignment h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
     text-align: center;
-    margin: 20px;
+    color: #ffffff;
+    background: linear-gradient(to right, #0047ab, #00c3ff);
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   }
   
   .engine-assignment table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background: #ffffff; /* White background for the table */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow: hidden;
+    transition: transform 0.3s ease;
   }
   
-  .engine-assignment th, .engine-assignment td {
-    border: 1px solid #ddd;
-    padding: 8px;
+  .engine-assignment table:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+  }
+  
+  .engine-assignment th,
+  .engine-assignment td {
+    padding: 12px;
     text-align: left;
   }
   
   .engine-assignment th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #3b82f6; /* Blue header background */
+    color: #ffffff;
+    font-weight: bold;
+    border-bottom: 2px solid #1e3a8a;
+  }
+  
+  .engine-assignment td {
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95em;
+  }
+  
+  .engine-assignment tr:hover {
+    background-color: #e0e7ff; /* Light blue row hover effect */
   }
   
   .engine-assign-section {
     margin-top: 20px;
+    text-align: center;
   }
   
   .engine-assign-section input {
-    margin-right: 10px;
+    width: 150px; /* Adjust width as needed */
+    padding: 0.75rem;
+    margin: 0 10px 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+  }
+  
+  .engine-assign-section button {
+    width: 150px; /* Same width as inputs */
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff; /* Blue background */
+    color: #ffffff; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1rem;
+  }
+  
+  .engine-assign-section button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
   }
   
   .error-message {
     color: red;
     margin-top: 10px;
+    text-align: center;
   }
   

@@ -1,49 +1,85 @@
-/* /Users/asharatmel/Desktop/cobsccompy4231p-010-client/src/components/Admin/LoginPage.css */
+/* /Users/malshitmel/Desktop/cobsccompy4231p-009-frontend/src/components/Admin/Login.css */
+
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #f4f4f4;
+    background: #f0f4ff; /* Light blue background */
+    font-family: 'Roboto', sans-serif;
   }
   
   .login-form {
-    background: #fff;
+    background: #ffffff; /* White background for the form */
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
+    width: 320px; /* Consistent width for the form */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .login-form:hover {
+    transform: translateY(-8px); /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
   }
   
   .login-form h2 {
-    margin-bottom: 1rem;
+    background: linear-gradient(to right, #0047ab, #00c3ff); /* Gradient background */
+    color: #ffffff; /* White text color */
+    padding: 15px;
+    margin: 0;
+    font-size: 1.8rem; /* Larger font size for header */
     text-align: center;
+    border-radius: 12px 12px 0 0; /* Rounded top corners */
+    width: 100%; /* Ensure header width matches the form width */
+    box-sizing: border-box; /* Include padding and border in the width */
   }
   
   .login-form label {
-    display: block;
-    margin-bottom: 0.5rem;
+    display: none; /* Hide label elements */
+  }
+  
+  .login-form input,
+  .login-form button {
+    width: 100%; /* Ensure inputs and button match form width */
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 6px; /* Slightly more rounded corners for inputs and button */
+    font-size: 1rem; /* Consistent font size */
+    box-sizing: border-box; /* Include padding and border in the width */
   }
   
   .login-form input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    background: #f9f9f9; /* Light background for inputs */
+  }
+  
+  .login-form input::placeholder {
+    color: #888; /* Placeholder text color */
+    font-size: 1rem; /* Font size for placeholder */
   }
   
   .login-form button {
-    width: 100%;
-    padding: 0.5rem;
     border: none;
-    border-radius: 4px;
-    background: #007bff;
-    color: #fff;
-    font-size: 1rem;
+    background: #007bff; /* Blue background */
+    color: #ffffff; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: bold; /* Bold text for the button */
   }
   
   .login-form button:hover {
-    background: #0056b3;
+    background: #0056b3; /* Darker blue on hover */
+  }
+  
+  .login-form input:focus,
+  .login-form button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Focus state */
+  }
+  
+  /* Maintain consistent line spacing */
+  .login-form input,
+  .login-form button {
+    line-height: 1.5;
   }
   

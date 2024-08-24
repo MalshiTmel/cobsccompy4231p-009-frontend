@@ -1,4 +1,4 @@
-// /Users/asharatmel/Desktop/cobsccompy4231p-010-client/src/components/Admin/LoginPage.js
+/* /Users/malshitmel/Desktop/cobsccompy4231p-009-frontend/src/components/Admin/Login.js */
 import React, { useState } from 'react';
 import './Login.css';
 
@@ -20,20 +20,20 @@ const LoginPage = ({ onLogin }) => {
       <div className="login-form">
         <h2>Admin Login</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
             required
           />
-          <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
             required
           />
           <button type="submit">Login</button>

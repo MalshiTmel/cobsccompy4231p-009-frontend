@@ -17,18 +17,13 @@ const TrainTable = ({ routeName, trains }) => {
           if (!engineResponse.ok) throw new Error(`Failed to fetch real-time data for engine ID ${result.EID}`);
           const engineData = await engineResponse.json();
 
-          // Parse and format dates
-          const startTime = new Date(engineData.startTime);
-          const estimatedEndTime = new Date(engineData.estimatedEndTime);
-
           return {
             ...train,
             ...engineData,
-            direction: engineData.direction || 'N/A',
             startStation: engineData.startStation || 'N/A',
-            startTime: isNaN(startTime.getTime()) ? 'Invalid Date' : startTime.toLocaleTimeString(),
+            startTime: engineData.startTime || 'N/A',
             endStation: engineData.endStation || 'N/A',
-            estimatedEndTime: isNaN(estimatedEndTime.getTime()) ? 'Invalid Date' : estimatedEndTime.toLocaleTimeString(),
+            estimatedEndTime: engineData.estimatedEndTime || 'N/A',
             currentStation: engineData.currentStation || 'N/A',
             nextStation: engineData.nextStation || 'N/A'
           };
@@ -36,11 +31,10 @@ const TrainTable = ({ routeName, trains }) => {
           console.error(`Error fetching details for train ${train.TID}:`, error);
           return {
             ...train,
-            direction: 'Error',
             startStation: 'Error',
-            startTime: 'Invalid Date',
+            startTime: 'Invalid Time',
             endStation: 'Error',
-            estimatedEndTime: 'Invalid Date',
+            estimatedEndTime: 'Invalid Time',
             currentStation: 'Error',
             nextStation: 'Error'
           };
@@ -59,7 +53,6 @@ const TrainTable = ({ routeName, trains }) => {
         <thead>
           <tr>
             <th>Train Name</th>
-            <th>Direction</th>
             <th>Start Station</th>
             <th>Start Time</th>
             <th>Current Station</th>
@@ -72,7 +65,6 @@ const TrainTable = ({ routeName, trains }) => {
           {trainDetails.map(train => (
             <tr key={train.TID}>
               <td>{train.TName || 'N/A'}</td>
-              <td>{train.direction}</td>
               <td>{train.startStation}</td>
               <td>{train.startTime}</td>
               <td>{train.currentStation}</td>
