@@ -1,0 +1,63 @@
+.train-table {
+  margin-bottom: 20px;
+  background: #ffffff; /* White background for the table */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.train-table:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.train-table h2 {
+  background-color: #1e3a8a; /* Dark blue header background */
+  color: #ffffff;
+  padding: 10px;
+  margin: 0;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.train-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.train-table th, .train-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.train-table th {
+  background-color: #3b82f6; /* Blue header cells */
+  color: #ffffff;
+  font-weight: bold;
+  border-bottom: 2px solid #1e3a8a;
+}
+
+.train-table td {
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95em;
+}
+
+.train-table tr:hover {
+  background-color: #e0e7ff; /* Light blue row hover effect */
+}
+
+.train-table td {
+  transition: background-color 0.3s ease;
+}
+
+.train-table th, .train-table td {
+  border: none; /* Remove borders */
+}
+
+.train-table td:first-child, .train-table th:first-child {
+  border-top-left-radius: 8px; /* Round top-left corner */
+}
+
+.train-table td:last-child, .train-table th:last-child {
+  border-top-right-radius: 8px; /* Round top-right corner */
+}
