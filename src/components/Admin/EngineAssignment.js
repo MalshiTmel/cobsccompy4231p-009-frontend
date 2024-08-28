@@ -99,9 +99,9 @@ const EngineAssignment = () => {
       <table>
         <thead>
           <tr>
-            <th>Full ID</th>
+     
             <th>Train ID</th>
-            <th>Train Name</th>
+       
             <th>Engine ID</th>
             <th>Actions</th>
           </tr>
@@ -109,9 +109,9 @@ const EngineAssignment = () => {
         <tbody>
           {trains.map(train => (
             <tr key={train._id}>
-              <td>{train._id}</td>
+
               <td>{train.TID}</td>
-              <td>{train.trainName}</td> {/* Ensure trainName is correctly rendered */}
+        
               <td>{train.EID}</td>
               <td>
                 <button onClick={() => handleUnassign(train.TID)}>Unassign</button>
