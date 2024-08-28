@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import TrainRoutes from './User/TrainRoutes';
-import Login from './Admin/Login'; // Adjusted the path
-import AdminDashboard from './Admin/AdminDashboard'; // Adjusted the path
-import OldRecords from './Admin/OldRecords'; // Import OldRecords component
+import TrainRoutes from './components/User/TrainRoutes';
+import Login from './components/Admin/Login'; // Adjusted the path
+import AdminDashboard from './components/Admin/AdminDashboard'; // Adjusted the path
+import OldRecords from './components/Admin/OldRecords'; // Import OldRecords component
 import './App.css';
 
 const App = () => {
