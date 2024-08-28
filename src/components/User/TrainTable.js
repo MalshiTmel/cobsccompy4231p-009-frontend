@@ -5,14 +5,15 @@ const TrainTable = ({ routeName, trains }) => {
   const [trainDetails, setTrainDetails] = useState([]);
 
   const fetchTrainDetails = async () => {
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
     const details = await Promise.all(trains.map(async (train) => {
       try {
         const { TID } = train;
-        const response = await fetch(`https://sltraintracking-64764a95d6f4.herokuapp.com/api/train-with-engines/tid/${TID}`);
+        const response = await fetch(`${baseUrl}/api/train-with-engines/tid/${TID}`);
         if (!response.ok) throw new Error(`Failed to fetch train with engine data for TID ${TID}`);
         const result = await response.json();
         
-        const engineResponse = await fetch(`https://sltraintracking-64764a95d6f4.herokuapp.com/api/train-engines/${result.EID}/realtime`);
+        const engineResponse = await fetch(`${baseUrl}/api/train-engines/${result.EID}/realtime`);
         if (!engineResponse.ok) throw new Error(`Failed to fetch real-time data for engine ID ${result.EID}`);
         const engineData = await engineResponse.json();
 
@@ -46,7 +47,7 @@ const TrainTable = ({ routeName, trains }) => {
     // Fetch train details initially
     fetchTrainDetails();
 
-    // Set up an interval to fetch the details every 5 seconds
+    // Set up an interval to fetch the details every 60 seconds
     const intervalId = setInterval(fetchTrainDetails, 60000);
 
     // Clear interval on component unmount
