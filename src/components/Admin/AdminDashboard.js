@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchRunningTrains = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/train-with-engines');
+        const response = await fetch('https://sltraintracking-64764a95d6f4.herokuapp.com/api/train-with-engines');
         const data = await response.json();
 
         // Fetch train names

@@ -8,11 +8,11 @@ const TrainTable = ({ routeName, trains }) => {
     const details = await Promise.all(trains.map(async (train) => {
       try {
         const { TID } = train;
-        const response = await fetch(`http://localhost:5001/api/train-with-engines/tid/${TID}`);
+        const response = await fetch(`https://sltraintracking-64764a95d6f4.herokuapp.com/api/train-with-engines/tid/${TID}`);
         if (!response.ok) throw new Error(`Failed to fetch train with engine data for TID ${TID}`);
         const result = await response.json();
         
-        const engineResponse = await fetch(`http://localhost:5001/api/train-engines/${result.EID}/realtime`);
+        const engineResponse = await fetch(`https://sltraintracking-64764a95d6f4.herokuapp.com/api/train-engines/${result.EID}/realtime`);
         if (!engineResponse.ok) throw new Error(`Failed to fetch real-time data for engine ID ${result.EID}`);
         const engineData = await engineResponse.json();
 
