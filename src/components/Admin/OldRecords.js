@@ -7,7 +7,7 @@ const OldRecords = () => {
   useEffect(() => {
     const fetchOldRecords = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/old-records'); // Adjust the API endpoint
+        const response = await fetch('https://sltraintracking-64764a95d6f4.herokuapp.com/api/old-records'); // Adjust the API endpoint
         const data = await response.json();
         setRecords(data);
       } catch (error) {

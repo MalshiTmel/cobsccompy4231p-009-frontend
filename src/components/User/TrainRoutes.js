@@ -22,7 +22,7 @@ const TrainRoutes = () => {
       const data = {};
       for (const route of routes) {
         try {
-          const response = await fetch(`http://localhost:5001/api/trains-without-engines/route/${route.id}`);
+          const response = await fetch(`https://sltraintracking-64764a95d6f4.herokuapp.com/api/trains-without-engines/route/${route.id}`);
           if (!response.ok) {
             throw new Error(`Failed to fetch data for route ${route.id}`);
           }
